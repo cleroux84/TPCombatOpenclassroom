@@ -82,7 +82,7 @@ class PersonnagesManager
     return $persos;
   }
 
-public function updateExperience(Personnage $perso)
+/* public function updateExperience(Personnage $perso)
   {
     $qtest = $this->_db->prepare('UPDATE personnages SET experience = :experience WHERE id = :id');
     
@@ -90,14 +90,25 @@ public function updateExperience(Personnage $perso)
     $qtest->bindValue(':id', $perso->id(), PDO::PARAM_INT);
     
     $qtest->execute();
-  }  
+  }  */ 
   
-  public function update(Personnage $perso)
+  public function update(Personnage $perso, $strength = 0)
   {
-    $q = $this->_db->prepare('UPDATE personnages SET degats = :degats WHERE id = :id');
+    if($perso->experience() >= 100)
+    {
+      $perso->setExperience(0);
+      $perso->setLevels(1);
+      $perso->setStrength($perso->levels());
+    }
+    $q = $this->_db->prepare('UPDATE personnages SET degats = :degats, experience= :experience, levels = :levels, 
+                            strength = :strength WHERE id = :id');
     
-    $q->bindValue(':degats', $perso->degats(), PDO::PARAM_INT);
+    $q->bindValue(':degats', $perso->degats() + $strength, PDO::PARAM_INT); // j'ajoute la force aux dégats
     $q->bindValue(':id', $perso->id(), PDO::PARAM_INT);
+    $q->bindValue(':levels', $perso->levels(), PDO::PARAM_INT);
+    $q->bindValue(':strength', $perso->strength(), PDO::PARAM_INT);
+    $q->bindValue(':experience', $perso->experience(), PDO::PARAM_INT);
+
     
     $q->execute();
   }

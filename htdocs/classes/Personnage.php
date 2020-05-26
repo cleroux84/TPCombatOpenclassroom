@@ -11,9 +11,7 @@ class Personnage
   const CEST_MOI = 1; // Constante renvoyée par la méthode `frapper` si on se frappe soi-même.
   const PERSONNAGE_TUE = 2; // Constante renvoyée par la méthode `frapper` si on a tué le personnage en le frappant.
   const PERSONNAGE_FRAPPE = 3; // Constante renvoyée par la méthode `frapper` si on a bien frappé le personnage.
-  const PERSONNAGE_LEVELS = 4; //Constante envoyée par la methode `frapper` si on a tué le personnage.
-  const PERSONNAGE_EXPERIENCE = 5;
-  const PERSONNAGE_STRENGTH = 6;
+  
  
   
   public function __construct(array $donnees)
@@ -31,10 +29,10 @@ class Personnage
     // Puis on retourne la valeur renvoyée par la méthode : self::PERSONNAGE_TUE ou self::PERSONNAGE_FRAPPE
     else 
       {
-      $this->recevoirExperience();  
-      return $perso->recevoirDegats();
-      return self::PERSONNAGE_EXPERIENCE;
-      
+/*       $force = $this->strength();  
+ */      $this->_experience += 25;  
+      return $perso->recevoirDegats();  
+        
     }
   }
   
@@ -71,36 +69,8 @@ class Personnage
    
   }
 
-  public function recevoirLevels()
-  {
-    $this->_levels += 1;
-    return self::PERSONNAGE_EXPERIENCE;
-    
-    /* return self::PERSONNAGE_LEVELS; */
-    
-    // Si on a 100 de dégâts ou plus, on dit que le personnage a été tué.
+ 
   
-  }
-  public function recevoirExperience()
-  {
-    $this->_experience += 1;
-    
-    if ($this->_experience >= 100)
-    {
-      $this->recevoirLevels();
-    }
-  }
-
-  public function recevoirStrength()
-  {
-    $this->_strength += 1;
-    
-    // Si on a 100 de dégâts ou plus, on dit que le personnage a été tué.
-    if ($this->_strength >= 100)
-    {
-      return self::PERSONNAGE_STRENGTH;
-    }
-  }
   
   // GETTERS //
 
@@ -136,32 +106,24 @@ class Personnage
 
   public function setStrength($strength)
   {
-    $strength = (int) $strength;
-    
-    if ($strength >= 0 && $strength <= 100)
-    {
+      
       $this->_strength = $strength;
-    }
+  
   }
 
   public function setExperience($experience)
   {
-    $experience = (int) $experience;
+
     
-    if ($experience >= 0 && $experience <= 100)
-    {
       $this->_experience = $experience;
-    }
+    
   }
 
   public function setLevels($levels)
   {
-    $levels = (int) $levels;
     
-    if ($levels >= 0 && $levels <= 100)
-    {
-      $this->_levels = $levels;
-    }
+      $this->_levels += $levels;
+    
   }
   
   public function setDegats($degats)

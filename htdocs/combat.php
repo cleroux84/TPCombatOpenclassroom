@@ -74,7 +74,7 @@ elseif (isset($_GET['frapper'])) // Si on a cliqué sur un personnage pour le fr
           $message = 'Le personnage a bien été frappé !';
           
           $manager->update($perso);
-          $manager->update($persoAFrapper);
+          $manager->update($persoAFrapper, $perso->strength());
           
           break;
         
@@ -84,14 +84,7 @@ elseif (isset($_GET['frapper'])) // Si on a cliqué sur un personnage pour le fr
           $manager->update($perso);
           $manager->delete($persoAFrapper);
           
-          
           break;
-
-        case Personnage::PERSONNAGE_EXPERIENCE :
-            $message = 'Bravo ! Vous passez au niveau supérieur !';
-            $perso->updateExperience($persoWin);
-            
-            break; 
       }
     }
   }
