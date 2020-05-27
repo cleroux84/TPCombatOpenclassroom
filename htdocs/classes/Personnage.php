@@ -1,12 +1,13 @@
 <?php
-class Personnage
+abstract class Personnage
 {
-  private $_degats,
+  protected $_degats,
           $_id,
           $_nom,
           $_levels,
           $_experience,
-          $_strength;
+          $_strength,
+          $type;
   
   const CEST_MOI = 1; // Constante renvoyée par la méthode `frapper` si on se frappe soi-même.
   const PERSONNAGE_TUE = 2; // Constante renvoyée par la méthode `frapper` si on a tué le personnage en le frappant.
@@ -17,6 +18,7 @@ class Personnage
   public function __construct(array $donnees)
   {
     $this->hydrate($donnees);
+    $this->type = strtolower(static::class);
   }
   
   public function frapper(Personnage $perso)
@@ -73,6 +75,11 @@ class Personnage
   
   
   // GETTERS //
+
+  public function type()
+  {
+    return $this->type;
+  }
 
   public function experience()
   {
@@ -154,3 +161,6 @@ class Personnage
     }
   }
 }
+
+
+

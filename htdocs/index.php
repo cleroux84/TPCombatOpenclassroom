@@ -32,6 +32,7 @@ if (isset($perso)) // Si on utilise un personnage (nouveau ou pas).
       <legend>Mes informations</legend>
       <p>
         Nom : <?= htmlspecialchars($perso->nom()) ?><br />
+        Type : <?= ucfirst($perso->type()) ?><br />
         Dégâts : <?= $perso->degats() ?>
         - Level : <?= $perso->levels() ?><br/>
         Experience : <?= $perso->experience() ?>
@@ -52,14 +53,22 @@ if (empty($persos))
 
 else
 {
+
   foreach ($persos as $unPerso)
   {
-    echo '<a href="?frapper=', $unPerso->id(), '">', htmlspecialchars($unPerso->nom()).'<br>';
-    echo '</a> dégâts : ', $unPerso->degats(), '</a>  - levels : ', $unPerso->levels().'<br>';
-    echo '</a> experience : ', $unPerso->experience(), '</a>  - force : ', $unPerso->strength().'<br>';
+    echo '<div class="card" style="width: 15rem;">
+  <div class="card-body">
+    <h5 class="card-title"><a href="?frapper=', $unPerso->id(), '">', htmlspecialchars($unPerso->nom()).'</a></h5>
+    <h6 class="card-subtitle mb-2 text-muted">', $unPerso->type().'</h6>
+    <p class="card-text">experience : ', $unPerso->experience(), '</p>
+    <p class="card-text">niveau : ', $unPerso->levels(), '</p>
+    <p class="card-text">dégats : ', $unPerso->degats(), '</p>
+  </div>
+</div>';
 }
 }
 ?>
+
       </p>
     </fieldset>
 <?php
@@ -70,6 +79,16 @@ else
     <form action="" method="post">
       <p>
         Nom : <input type="text" name="nom" maxlength="50" />
+
+        Type :
+
+        <select name="type">
+          <option value="magicien">Magicien</option>
+          <option value="guerrier">Guerrier</option>
+          <option value="archer">Archer</option>
+
+        </select>
+
         <input type="submit" value="Créer ce personnage" name="creer" />
         <input type="submit" value="Utiliser ce personnage" name="utiliser" />
       </p>

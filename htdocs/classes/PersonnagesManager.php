@@ -10,8 +10,9 @@ class PersonnagesManager
   
   public function add(Personnage $perso)
   {
-    $q = $this->_db->prepare('INSERT INTO personnages(nom) VALUES(:nom)');
+    $q = $this->_db->prepare('INSERT INTO personnages(nom, type) VALUES(:nom, :type)');
     $q->bindValue(':nom', $perso->nom());
+    $q->bindValue(':type', $perso->type());
     $q->execute();
     
     $perso->hydrate([
@@ -54,19 +55,31 @@ class PersonnagesManager
     if (is_int($info))
     {
       $q = $this->_db->query('SELECT * FROM personnages WHERE id = '.$info);
-      $donnees = $q->fetch(PDO::FETCH_ASSOC);
+      $perso = $q->fetch(PDO::FETCH_ASSOC);
       
-      return new Personnage($donnees);
+      
     }
     else
     {
       $q = $this->_db->prepare('SELECT * FROM personnages WHERE nom = :nom');
       $q->execute([':nom' => $info]);
     
-      return new Personnage($q->fetch(PDO::FETCH_ASSOC));
+      $perso = $q->fetch(PDO::FETCH_ASSOC);
     }
+    switch ($perso['type'])
+
+    {
+
+      case 'guerrier': return new Guerrier($perso);
+      case 'magicien': return new Magicien($perso);
+      case 'archer': return new Archer($perso);
+
+
+      default: return null;
+
+    }
+
   }
-  
   public function getList($nom)
   {
     $persos = [];
@@ -76,21 +89,22 @@ class PersonnagesManager
     
     while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
     {
-      $persos[] = new Personnage($donnees);
+
+      switch ($donnees['type'])
+
+      {
+
+        case 'guerrier': $persos[] = new Guerrier($donnees); break;
+        case 'magicien': $persos[] = new Magicien($donnees); break;
+        case 'archer': $persos[] = new Archer($donnees); break;
+
+      }
+
     }
     
     return $persos;
   }
 
-/* public function updateExperience(Personnage $perso)
-  {
-    $qtest = $this->_db->prepare('UPDATE personnages SET experience = :experience WHERE id = :id');
-    
-    $qtest->bindValue(':experience', $perso->experience(),PDO::PARAM_INT);
-    $qtest->bindValue(':id', $perso->id(), PDO::PARAM_INT);
-    
-    $qtest->execute();
-  }  */ 
   
   public function update(Personnage $perso, $strength = 0)
   {
