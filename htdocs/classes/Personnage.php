@@ -33,7 +33,7 @@ abstract class Personnage
       {
 /*       $force = $this->strength();  
  */      $this->_experience += 25;  
-      return $perso->recevoirDegats();  
+         return $perso->recevoirDegats($this->type());  
         
     }
   }
@@ -56,7 +56,7 @@ abstract class Personnage
     return !empty($this->_nom);
   }
   
-  public function recevoirDegats()
+  public function recevoirDegats($persoQuiFrappeType)
   {
     $this->_degats += 5;
     
@@ -161,6 +161,3 @@ abstract class Personnage
     }
   }
 }
-
-
-

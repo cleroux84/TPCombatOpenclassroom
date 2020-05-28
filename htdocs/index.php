@@ -56,15 +56,41 @@ else
 
   foreach ($persos as $unPerso)
   {
+    if($unPerso->type() === "magicien"){
     echo '<div class="card" style="width: 15rem;">
-  <div class="card-body">
-    <h5 class="card-title"><a href="?frapper=', $unPerso->id(), '">', htmlspecialchars($unPerso->nom()).'</a></h5>
-    <h6 class="card-subtitle mb-2 text-muted">', $unPerso->type().'</h6>
+  <div class="card-body bg-primary">
+  <button type="button" class="btn btn-dark"><a href="?frapper=', $unPerso->id(), '">', htmlspecialchars($unPerso->nom()).'</a></button>
+    <h6 class="type_card card-subtitle type_card mb-2 text-muted">', $unPerso->type().'</h6>
     <p class="card-text">experience : ', $unPerso->experience(), '</p>
     <p class="card-text">niveau : ', $unPerso->levels(), '</p>
     <p class="card-text">dégats : ', $unPerso->degats(), '</p>
   </div>
 </div>';
+  }
+  else if($unPerso->type() === "guerrier")
+  {
+    echo '<div class="card" style="width: 15rem;">
+  <div class="card-body bg-danger">
+  <button type="button" class="btn btn-dark"><a href="?frapper=', $unPerso->id(), '">', htmlspecialchars($unPerso->nom()).'</a></button>
+    <h6 class="type_card card-subtitle mb-2 text-muted">', $unPerso->type().'</h6>
+    <p class="card-text">experience : ', $unPerso->experience(), '</p>
+    <p class="card-text">niveau : ', $unPerso->levels(), '</p>
+    <p class="card-text">dégats : ', $unPerso->degats(), '</p>
+  </div>
+</div>';
+  }
+  else if($unPerso->type() === "archer")
+  {
+    echo '<div class="card" style="width: 15rem;">
+  <div class="card-body bg-success">
+  <button type="button" class="btn btn-dark"><a href="?frapper=', $unPerso->id(), '">', htmlspecialchars($unPerso->nom()).'</a></button>
+    <h6 class="type_card card-subtitle mb-2 text-muted">', $unPerso->type().'</h6>
+    <p class="card-text">experience : ', $unPerso->experience(), '</p>
+    <p class="card-text">niveau : ', $unPerso->levels(), '</p>
+    <p class="card-text">dégats : ', $unPerso->degats(), '</p>
+  </div>
+</div>';
+  }
 }
 }
 ?>
