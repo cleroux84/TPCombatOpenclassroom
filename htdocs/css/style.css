@@ -1,11 +1,21 @@
 body{
     text-align: center;
+    background-color: #f8f3f3;
 }
 .card{
-    margin: auto;
+  
     background-color: none;
+    height: 220px;
+}
+ 
+.bg-magicien{
+    background-color: #74f7bf;
 }
 
-.type_card{
-    margin-top: 15px;
+.bg-archer{
+    background-color: #ff4d31;
+}
+
+.bg-guerrier{
+    background-color: #c7ff31;
 }

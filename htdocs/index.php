@@ -25,20 +25,26 @@ if (isset($message)) // On a un message à afficher ?
 if (isset($perso)) // Si on utilise un personnage (nouveau ou pas).
 {
 ?>
-   
-    <button type="button" class="btn btn-dark"><a href="?deconnexion=1">Déconnexion</button></a>
+
+ <div class="container">  
+   <div class="row justify-content-center align-items-center">
+     <div class="col-4">
+
+      
     
-    <fieldset>
-      <legend>Mes informations</legend>
-      <p>
-        Nom : <?= htmlspecialchars($perso->nom()) ?><br />
-        Type : <?= ucfirst($perso->type()) ?><br />
-        Dégâts : <?= $perso->degats() ?>
-        - Level : <?= $perso->levels() ?><br/>
-        Experience : <?= $perso->experience() ?>
-        - Force : <?= $perso->strength() ?>
-      </p>
-    </fieldset>
+    <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+    
+      <div class="card-header"><h3><?= htmlspecialchars($perso->nom()) ?> <br> <?= ucfirst($perso->type()) ?></div></h3>
+        <div class="card-body">
+         <p class="card-text"> Dégâts : <?= $perso->degats() ?>
+            - Level : <?= $perso->levels() ?><br/>
+            Experience : <?= $perso->experience() ?>
+            - Force : <?= $perso->strength() ?></p>
+      </div>
+      <button type="button" class="btn btn-light"><a href="?deconnexion=1">Déconnexion</button></a>
+  </div>
+</div>
+  
     
     <fieldset>
       <legend>Qui frapper ?</legend>
@@ -53,47 +59,44 @@ if (empty($persos))
 
 else
 {
-
+echo'<div class="col">';
   foreach ($persos as $unPerso)
   {
+
+
     if($unPerso->type() === "magicien"){
-    echo '<div class="card" style="width: 15rem;">
-  <div class="card-body bg-primary">
-  <button type="button" class="btn btn-dark"><a href="?frapper=', $unPerso->id(), '">', htmlspecialchars($unPerso->nom()).'</a></button>
-    <h6 class="type_card card-subtitle type_card mb-2 text-muted">', $unPerso->type().'</h6>
-    <p class="card-text">experience : ', $unPerso->experience(), '</p>
-    <p class="card-text">niveau : ', $unPerso->levels(), '</p>
-    <p class="card-text">dégats : ', $unPerso->degats(), '</p>
-  </div>
-</div>';
+
+      $backgroundColor = "bg-magicien";
+      $images = "src='images/magicien.jpg'";
   }
   else if($unPerso->type() === "guerrier")
-  {
-    echo '<div class="card" style="width: 15rem;">
-  <div class="card-body bg-danger">
-  <button type="button" class="btn btn-dark"><a href="?frapper=', $unPerso->id(), '">', htmlspecialchars($unPerso->nom()).'</a></button>
-    <h6 class="type_card card-subtitle mb-2 text-muted">', $unPerso->type().'</h6>
-    <p class="card-text">experience : ', $unPerso->experience(), '</p>
-    <p class="card-text">niveau : ', $unPerso->levels(), '</p>
-    <p class="card-text">dégats : ', $unPerso->degats(), '</p>
-  </div>
-</div>';
+  { $backgroundColor = "bg-guerrier";
+    $images = "src='images/guerrier.jpg'";
+
   }
   else if($unPerso->type() === "archer")
   {
-    echo '<div class="card" style="width: 15rem;">
-  <div class="card-body bg-success">
-  <button type="button" class="btn btn-dark"><a href="?frapper=', $unPerso->id(), '">', htmlspecialchars($unPerso->nom()).'</a></button>
-    <h6 class="type_card card-subtitle mb-2 text-muted">', $unPerso->type().'</h6>
-    <p class="card-text">experience : ', $unPerso->experience(), '</p>
-    <p class="card-text">niveau : ', $unPerso->levels(), '</p>
-    <p class="card-text">dégats : ', $unPerso->degats(), '</p>
-  </div>
-</div>';
+    $backgroundColor = "bg-archer";
+    $images = "src='images/archer.jpg'"
+   ;
   }
+
+  echo '<div class="card text-white '.$backgroundColor.' mb-3" style="max-width: 18rem;">
+  <div class="card-header"><img class="" '.$images.' alt="Photo de magicien" /></div>
+  <div class="card-body">
+  <button type="button" class="btn btn-dark mb-2"><a href="?frapper=', $unPerso->id(), '">', htmlspecialchars($unPerso->nom()).'</a></button>
+  <h5 class="type_card card-subtitle mb-2 text-muted">', ucfirst($unPerso->type()).'</h5>
+  <p class="card-text">experience : ', $unPerso->experience(),' - niveau : ', $unPerso->levels(),'<br> 
+  force : ', $unPerso->strength(), '<br>
+  dégats : ', $unPerso->degats(), '</p>
+  </div>
+  </div>
+ ';
 }
 }
+
 ?>
+
 
       </p>
     </fieldset>
