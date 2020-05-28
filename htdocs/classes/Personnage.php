@@ -69,6 +69,7 @@ abstract class Personnage
     // Sinon, on se contente de dire que le personnage a bien été frappé.
     return self::PERSONNAGE_FRAPPE;
    
+  
   }
 
  

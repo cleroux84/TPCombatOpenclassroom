@@ -4,6 +4,7 @@ include 'config/autoload.php';
 include 'config/db.php';
 include 'combat.php';
 
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -62,9 +63,7 @@ else
 echo'<div class="col">';
   foreach ($persos as $unPerso)
   {
-
-
-    if($unPerso->type() === "magicien"){
+   if($unPerso->type() === "magicien"){
 
       $backgroundColor = "bg-magicien";
       $images = "src='images/magicien.jpg'";
@@ -82,22 +81,19 @@ echo'<div class="col">';
   }
 
   echo '<div class="card text-white '.$backgroundColor.' mb-3" style="max-width: 18rem;">
-  <div class="card-header"><img class="" '.$images.' alt="Photo de magicien" /></div>
-  <div class="card-body">
-  <button type="button" class="btn btn-dark mb-2"><a href="?frapper=', $unPerso->id(), '">', htmlspecialchars($unPerso->nom()).'</a></button>
-  <h5 class="type_card card-subtitle mb-2 text-muted">', ucfirst($unPerso->type()).'</h5>
-  <p class="card-text">experience : ', $unPerso->experience(),' - niveau : ', $unPerso->levels(),'<br> 
-  force : ', $unPerso->strength(), '<br>
-  dégats : ', $unPerso->degats(), '</p>
-  </div>
-  </div>
- ';
+          <div class="card-header"><img class="" '.$images.' alt="Photo de magicien" /></div>
+            <div class="card-body">
+              <button type="button" class="btn btn-dark mb-2"><a href="?frapper=', $unPerso->id(), '">', htmlspecialchars($unPerso->nom()).'</a></button>
+              <h5 class="type_card card-subtitle mb-2 text-muted">', ucfirst($unPerso->type()).'</h5>
+              <p class="card-text">experience : ', $unPerso->experience(),' - niveau : ', $unPerso->levels(),'<br> 
+              force : ', $unPerso->strength(), '<br>
+              dégats : ', $unPerso->degats(), '</p>
+          </div>
+        </div>
+        ';
 }
 }
-
 ?>
-
-
       </p>
     </fieldset>
 <?php

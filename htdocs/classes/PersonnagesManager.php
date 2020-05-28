@@ -8,7 +8,7 @@ class PersonnagesManager
     $this->setDb($db);
   }
   
-  public function add(Personnage $perso)
+  public function add($perso)
   {
     $q = $this->_db->prepare('INSERT INTO personnages(nom, type) VALUES(:nom, :type)');
     $q->bindValue(':nom', $perso->nom());
@@ -21,7 +21,7 @@ class PersonnagesManager
       'levels'=> 0,
       'experience'=> 0,
       'strength'=> 0,
-      
+            
     ]);
   }
   
